@@ -85,15 +85,13 @@ public class Pong extends Settings implements ActionListener, KeyListener {
     }
 
     //Settings the game status to 2, and declaring the players and the ball.
-    private void start() throws IOException {
+    private void start() throws IOException, UnsupportedAudioFileException {
         gameStatus = 2;
         player1 = new Paddle(this, 1);
         player2 = new Paddle(this, 2);
-        try {
-            ball = new Ball(this);
-        } catch (IOException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
+
+        ball = new Ball(this);
+
     }
 
     //Checking if a players score is bigger then the score limit, if it is it's starting the score screen.
@@ -231,7 +229,7 @@ public class Pong extends Settings implements ActionListener, KeyListener {
             if (gameStatus == 0 || gameStatus == 3) {
                 try {
                     start();
-                } catch (IOException e1) {
+                } catch (IOException | UnsupportedAudioFileException e1) {
                     e1.printStackTrace();
                 }
             } else if (gameStatus == 1) {
