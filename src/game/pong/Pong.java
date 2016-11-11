@@ -105,17 +105,17 @@ public class Pong extends Settings implements ActionListener, KeyListener {
             playerWon = playerTwoName;
             gameStatus = 3;
         }
-        if (up) {
+        if (w) {
             player1.move(true);
         }
-        if (down) {
+        if (s) {
             player1.move(false);
         }
         if (!bot) {
-            if (w) {
+            if (up) {
                 player2.move(true);
             }
-            if (s) {
+            if (down) {
                 player2.move(false);
             }
         } else {

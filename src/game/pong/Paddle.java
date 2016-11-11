@@ -31,6 +31,7 @@ public class Paddle extends Settings {
     public Paddle(Pong pong, int paddleNumb) throws IOException {
 
         this.paddleNumber = paddleNumb;
+        this.score = 0;
 
         if (paddleNumber == 1) {
             this.x = 0;
