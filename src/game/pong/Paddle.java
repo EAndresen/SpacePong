@@ -21,7 +21,7 @@ public class Paddle extends Settings {
 
     //Instance variables
     int paddleNumber;
-    int x, y, width = 50, height = this.getPaddleHeight(); //Set position and size of the paddles.
+    public int x, y, width = 50, height = this.getPaddleHeight(); //Set position and size of the paddles.
     int score;
 
 
@@ -32,6 +32,8 @@ public class Paddle extends Settings {
 
         this.paddleNumber = paddleNumb;
         this.score = 0;
+        this.x = 0;
+        this.y = 0;
 
         if (paddleNumber == 1) {
             this.x = 0;

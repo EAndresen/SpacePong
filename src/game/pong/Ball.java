@@ -31,7 +31,8 @@ public class Ball extends Settings {
 
     private Random random;
     private Pong pong;
-    private BufferedImage ballImg = ImageIO.read(Class.class.getResourceAsStream("/resources/ball-red.png")); //Image buffer
+
+    //BufferedImage ballImg = ImageIO.read(Class.class.getResourceAsStream("/resources/ball-red.png")); //Image buffer
     private Clip ballSound;
 
     //Declare and spawn the ball.
@@ -131,7 +132,11 @@ public class Ball extends Settings {
 
     //Rendering the ball
     void render(Graphics g) {
-        g.drawImage(ballImg, x, y, this.width, this.height, null);
+
+        g.setColor(Color.WHITE);
+        g.fillOval(x, y, width, height);
+
+        //g.drawImage(ballImg, x, y, this.width, this.height, null);
     }
 
     //Method to play ball collision sound.
@@ -155,11 +160,10 @@ public class Ball extends Settings {
 
     //Method to stop the collision sound if any so it can be played again.
     private void stopBallSound() {
-        if (ballSound == null) {
-
-        } else {
+        if (ballSound != null) {
             ballSound.stop();
+            ballSound = null;
         }
-        ballSound = null;
+
     }
 }

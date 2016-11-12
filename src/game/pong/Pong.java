@@ -24,6 +24,8 @@ import java.net.URL;
 
 public class Pong extends Settings implements ActionListener, KeyListener {
 
+    Paddle paddle = new Paddle(this, 3);
+
     //Instance variables
     int width = 1000, height = 1000; // The size of the play field
     private int gameStatus = 2;  //1 = Paused, 2 = Playing, 3 = Over
@@ -75,6 +77,7 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
         //Creating a sound clip for the background music.
         //Adjusting the volume and then starts the sound.
+
         Clip gameSound = AudioSystem.getClip();
         URL url = this.getClass().getResource("/resources/game-sound.wav");
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
@@ -82,6 +85,7 @@ public class Pong extends Settings implements ActionListener, KeyListener {
         FloatControl gainControl = (FloatControl) gameSound.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-15.0f);
         gameSound.start();
+
     }
 
     //Settings the game status to 2, and declaring the players and the ball.
