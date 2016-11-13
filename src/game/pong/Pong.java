@@ -24,8 +24,6 @@ import java.net.URL;
 
 public class Pong extends Settings implements ActionListener, KeyListener {
 
-    Paddle paddle = new Paddle(this, 3);
-
     //Instance variables
     int width = 1000, height = 1000; // The size of the play field
     private int gameStatus = 2;  //1 = Paused, 2 = Playing, 3 = Over
@@ -43,7 +41,7 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
     private Ball ball;
 
-    private boolean bot, selectingDifficulty;
+    private boolean bot;
     private boolean w, s, up, down;
 
     private BufferedImage background = ImageIO.read(Class.class.getResourceAsStream("/resources/background.png ")); //Background image buffer.
@@ -66,7 +64,6 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
         //Collecting game data from the settings class.
         bot = this.getBotEnabled();
-        selectingDifficulty = this.getBotEnabled();
         scoreLimit = this.getScoreLimit();
         playerOneName = this.getPlayerOneName();
         playerTwoName = this.getPlayerTwoName();
@@ -77,7 +74,6 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
         //Creating a sound clip for the background music.
         //Adjusting the volume and then starts the sound.
-
         Clip gameSound = AudioSystem.getClip();
         URL url = this.getClass().getResource("/resources/game-sound.wav");
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
@@ -85,7 +81,6 @@ public class Pong extends Settings implements ActionListener, KeyListener {
         FloatControl gainControl = (FloatControl) gameSound.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-15.0f);
         gameSound.start();
-
     }
 
     //Settings the game status to 2, and declaring the players and the ball.
@@ -203,12 +198,10 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (gameStatus == 2) {
-            try {
-                update();
-            } catch (IOException | LineUnavailableException e1) {
-                e1.printStackTrace();
-            }
+        if (gameStatus == 2) try {
+            update();
+        } catch (IOException | LineUnavailableException e1) {
+            e1.printStackTrace();
         }
         renderer.repaint();
     }
@@ -221,25 +214,34 @@ public class Pong extends Settings implements ActionListener, KeyListener {
         //Sets W/S/UP/DOWN to true, to move the players paddles.
         if (id == KeyEvent.VK_W) {
             w = true;
-        } else if (id == KeyEvent.VK_S) {
-            s = true;
-        } else if (id == KeyEvent.VK_UP) {
-            up = true;
-        } else if (id == KeyEvent.VK_DOWN) {
-            down = true;
-        }
-        //If in game press space to pause the game, other vise start the game again
-        else if (id == KeyEvent.VK_SPACE) {
-            if (gameStatus == 0 || gameStatus == 3) {
-                try {
-                    start();
-                } catch (IOException | UnsupportedAudioFileException e1) {
-                    e1.printStackTrace();
+        } else {
+            if (id == KeyEvent.VK_S) {
+                s = true;
+            } else {
+                if (id == KeyEvent.VK_UP) {
+                    up = true;
+                } else {
+                    if (id == KeyEvent.VK_DOWN) {
+                        down = true;
+                    }
+                    //If in game press space to pause the game, other vise start the game again
+                    else {
+                        if (id == KeyEvent.VK_SPACE) {
+                            if (gameStatus == 0 || gameStatus == 3) {
+                                try {
+                                    start();
+                                } catch (IOException | UnsupportedAudioFileException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                            else if (gameStatus == 1) {
+                                gameStatus = 2;
+                            } else if (gameStatus == 2) {
+                                gameStatus = 1;
+                            }
+                        }
+                    }
                 }
-            } else if (gameStatus == 1) {
-                gameStatus = 2;
-            } else if (gameStatus == 2) {
-                gameStatus = 1;
             }
         }
     }
@@ -251,12 +253,16 @@ public class Pong extends Settings implements ActionListener, KeyListener {
 
         if (id == KeyEvent.VK_W) {
             w = false;
-        } else if (id == KeyEvent.VK_S) {
-            s = false;
-        } else if (id == KeyEvent.VK_UP) {
-            up = false;
-        } else if (id == KeyEvent.VK_DOWN) {
-            down = false;
+        } else {
+            if (id == KeyEvent.VK_S) {
+                s = false;
+            } else {
+                if (id == KeyEvent.VK_UP) {
+                    up = false;
+                } else if (id == KeyEvent.VK_DOWN) {
+                    down = false;
+                }
+            }
         }
     }
 

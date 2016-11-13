@@ -21,7 +21,7 @@ public class Paddle extends Settings {
 
     //Instance variables
     int paddleNumber;
-    public int x, y, width = 50, height = this.getPaddleHeight(); //Set position and size of the paddles.
+    int x, y, width = 50, height = this.getPaddleHeight(); //Set position and size of the paddles.
     int score;
 
 
@@ -31,9 +31,6 @@ public class Paddle extends Settings {
     public Paddle(Pong pong, int paddleNumb) throws IOException {
 
         this.paddleNumber = paddleNumb;
-        this.score = 0;
-        this.x = 0;
-        this.y = 0;
 
         if (paddleNumber == 1) {
             this.x = 0;
@@ -44,7 +41,8 @@ public class Paddle extends Settings {
     }
 
     //Rendering the paddles.
-    void render(Graphics g) {
+    void render(Graphics g)
+    {
         g.drawImage(paddleImage, x, y, this.width, this.height, null);
     }
 

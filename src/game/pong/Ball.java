@@ -23,7 +23,8 @@ import java.util.Random;
 public class Ball extends Settings {
 
     //Instance variables.
-    int x, y;
+    int y;
+    private int x;
     private int width = this.getBallSize(), height = this.getBallSize(); //Ball position and size.
     private int motionX, motionY;
     private int amountOfHits;
@@ -31,8 +32,7 @@ public class Ball extends Settings {
 
     private Random random;
     private Pong pong;
-
-    //BufferedImage ballImg = ImageIO.read(Class.class.getResourceAsStream("/resources/ball-red.png")); //Image buffer
+    private BufferedImage ballImg = ImageIO.read(Class.class.getResourceAsStream("/resources/ball-red.png")); //Image buffer
     private Clip ballSound;
 
     //Declare and spawn the ball.
@@ -123,7 +123,7 @@ public class Ball extends Settings {
 
             return 1; //bounce
 
-        //Returns 2  if not a collision with paddle.
+            //Returns 2  if not a collision with paddle.
         } else if ((paddle.x > x && paddle.paddleNumber == 1) || (paddle.x < x - width && paddle.paddleNumber == 2)) {
             return 2; //score
         }
@@ -132,11 +132,7 @@ public class Ball extends Settings {
 
     //Rendering the ball
     void render(Graphics g) {
-
-        g.setColor(Color.WHITE);
-        g.fillOval(x, y, width, height);
-
-        //g.drawImage(ballImg, x, y, this.width, this.height, null);
+        g.drawImage(ballImg, x, y, this.width, this.height, null);
     }
 
     //Method to play ball collision sound.
@@ -164,6 +160,5 @@ public class Ball extends Settings {
             ballSound.stop();
             ballSound = null;
         }
-
     }
 }

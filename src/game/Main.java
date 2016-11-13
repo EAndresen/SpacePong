@@ -17,7 +17,7 @@ public class Main extends Application {
 
         //Starting the main settings view.
         Parent root = FXMLLoader.load(getClass().getResource("settingsView.fxml"));
-        primaryStage.setTitle("Pong");
+        primaryStage.setTitle("SpacePong");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
         primaryStage.setResizable(false);
@@ -27,11 +27,7 @@ public class Main extends Application {
             Platform.exit();
             System.exit(0);
         });
-
-        Settings s = new Settings();
-        Controller c = new Controller();
     }
-
 
     public static void main(String[] args) {
         launch(args);
